@@ -1,1 +1,1 @@
-# Multi Vehicle Rental System
+# Multi-vehicle Rental System
