@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Login'),
+        title: Text('Sign in'),
       ),
       body: Center(
         child: Padding(
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 10),
               Text(
-                'Travel and live the new experience of rent the cars from your home',
+                'Travel and live the new experience of rent the vehicle from your home',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16),
               ),
@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
+                  style: TextButton.styleFrom(),
                   onPressed: () {
                     // Handle forgot password
                   },
@@ -88,10 +89,16 @@ class _LoginPageState extends State<LoginPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
+                  shadowColor: Colors.blue,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.blueAccent, width: 2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                   textStyle: TextStyle(fontSize: 18),
                 ),
-                child: Text('Sign In'),
+                child: Text('Sign in'),
               ),
               SizedBox(height: 20),
               TextButton(
