@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'auth/login_page.dart';
+import 'package:mvrs/auth/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "MVRS",
+      theme: ThemeData(
+        fontFamily: "Montserrat",
+      ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SignUpPage(),
     );
   }
 }
