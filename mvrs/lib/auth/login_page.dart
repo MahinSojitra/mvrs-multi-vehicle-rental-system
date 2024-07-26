@@ -11,6 +11,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisiblityHide = true;
 
   @override
   void dispose() {
@@ -52,19 +53,51 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 20),
               TextField(
-                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: _passwordVisiblityHide,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisiblityHide
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: _passwordVisiblityHide
+                          ? Colors.grey[650]
+                          : Colors.blue,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisiblityHide = !_passwordVisiblityHide;
+                      });
+                    },
+                  ),
                 ),
               ),
               SizedBox(height: 10),
