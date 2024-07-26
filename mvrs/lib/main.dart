@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvrs/auth/signup_page.dart';
+import 'package:mvrs/auth/login_page.dart';
+// import 'package:mvrs/auth/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+      home: LoginPage(),
     );
   }
 }

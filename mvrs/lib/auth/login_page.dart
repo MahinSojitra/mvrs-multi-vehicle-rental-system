@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mvrs/auth/forgot_password.dart';
+import 'package:mvrs/auth/signup_page.dart';
+import 'package:mvrs/info/about.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,8 +29,22 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Sign in'),
+        title: Text('Multi Vehicle Rental System'),
       ),
+      drawer: Drawer(
+          child: ListView(
+        children: [
+          ListTile(
+            title: const Text('About'),
+            onTap: () {
+              setState(() {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutPage()));
+              });
+            },
+          ),
+        ],
+      )),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -42,15 +59,15 @@ class _LoginPageState extends State<LoginPage> {
                   )),
               SizedBox(height: 20),
               Text(
-                'Welcome back!',
+                'Welcome!',
                 style: TextStyle(
-                  fontSize: 45,
+                  fontSize: 65,
                   fontFamily: "Cookie",
                 ),
               ),
               SizedBox(height: 10),
               Text(
-                'Travel and live the new experience of rent the vehicle from your home',
+                'Travel and live the new experience of rent the vehicles from our home',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16),
               ),
@@ -109,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextButton(
                   style: TextButton.styleFrom(),
                   onPressed: () {
-                    // Handle forgot password
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPage()));
                   },
                   child: Text('Forgot your password?'),
                 ),
@@ -137,9 +154,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('Sign in'),
               ),
               SizedBox(height: 20),
-              TextButton(
+              ElevatedButton(
                 onPressed: () {
-                  // Handle sign up
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
                 child: Text("Don't have an account? Sign up here"),
               ),
