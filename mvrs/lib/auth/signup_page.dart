@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mvrs/auth/login_page.dart';
-import 'package:mvrs/info/about.dart'; // Ensure this path is correct
+// import 'package:mvrs/info/about.dart'; // Ensure this path is correct
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -31,8 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 7,
         title: Text("Sign Up"),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -46,7 +47,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: TextStyle(
                   fontSize: 45,
                   fontFamily: "Cookie",
-                  fontWeight: FontWeight.bold, // Optional: for better readability
+                  fontWeight:
+                      FontWeight.bold, // Optional: for better readability
                 ),
               ),
             ),
@@ -109,36 +111,36 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             SizedBox(height: 10),
             TextField(
-              controller: emailid,
-              decoration: InputDecoration(
-                label: Text("Email"),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                hintText: "Enter your Email id",
-                // labelText: "Enter your email",
+                controller: emailid,
+                decoration: InputDecoration(
+                  label: Text("Email"),
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  hintText: "Enter your Email id",
+                  // labelText: "Enter your email",
                   border: OutlineInputBorder(),
-            )),
+                )),
             SizedBox(height: 10),
             TextField(
-              controller: password,
-              obscureText: passwordvisibility,
-              decoration: InputDecoration(
-                label: Text("Password"),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                hintText: "Enter your password",
-                // labelText: "Enter your password",
-                border: OutlineInputBorder(),
-            )),
+                controller: password,
+                obscureText: passwordvisibility,
+                decoration: InputDecoration(
+                  label: Text("Password"),
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  hintText: "Enter your password",
+                  // labelText: "Enter your password",
+                  border: OutlineInputBorder(),
+                )),
             SizedBox(height: 10),
             TextField(
-              controller: recheckpassword,
-              obscureText: passwordvisibility,
-              decoration: InputDecoration(
-                label: Text("Recheck Password"),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                hintText: "Enter password again",
-                // labelText: "Enter password again",
-                border: OutlineInputBorder(),
-            )),
+                controller: recheckpassword,
+                obscureText: passwordvisibility,
+                decoration: InputDecoration(
+                  label: Text("Recheck Password"),
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  hintText: "Enter password again",
+                  // labelText: "Enter password again",
+                  border: OutlineInputBorder(),
+                )),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
