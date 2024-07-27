@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     // Placeholder for the image
                     Container(
@@ -126,9 +127,6 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: () {
                         // Handle sign in
-                        // String email = _emailController.text;
-                        // String password = _passwordController.text;
-                        // Perform sign-in logic
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
