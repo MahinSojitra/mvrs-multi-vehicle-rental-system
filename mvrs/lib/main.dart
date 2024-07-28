@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/host-signup",
+      initialRoute: "/",
       routes: {
         "/": (context) => LoginPage(),
         "/user-signup": (context) => UserSignUpPage(),
