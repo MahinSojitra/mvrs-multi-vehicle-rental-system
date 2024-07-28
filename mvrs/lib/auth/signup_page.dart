@@ -33,6 +33,7 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
     _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 

@@ -17,6 +17,12 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage>
   bool _isEmailValid = true;
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

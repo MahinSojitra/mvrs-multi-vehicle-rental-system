@@ -17,6 +17,13 @@ class _ForgotPasswordVerificationPageState
   final TextEditingController _otpCodeController = TextEditingController();
 
   bool _isOtpCodeValid = true;
+
+  @override
+  void dispose() {
+    _otpCodeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

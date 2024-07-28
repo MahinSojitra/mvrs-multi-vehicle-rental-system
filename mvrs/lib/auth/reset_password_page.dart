@@ -11,20 +11,22 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage>
     with AuthInputValidationMixin {
   final _resetPasswordFormGlobalKey = GlobalKey<FormState>();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   bool _passwordVisiblityHide = true;
-  bool _isFirstNameValid = true;
-  bool _isUsernameValid = true;
-  bool _isEmailValid = true;
   // ignore: unused_field
   bool _isPasswordValid = true;
   bool _isConfirmPasswordValid = true;
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
