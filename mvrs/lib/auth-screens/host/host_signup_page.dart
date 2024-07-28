@@ -1,16 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:mvrs/auth/validators/auth_input_validation_mixin.dart';
+import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class HostSignUpPage extends StatefulWidget {
+  const HostSignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<HostSignUpPage> createState() => _HostSignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
+class _HostSignUpPageState extends State<HostSignUpPage>
+    with AuthInputValidationMixin {
   final _signUpFormGlobalKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -72,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
                     ),
                     Center(
                       child: const Text(
-                        "Discover the city or explore beyond.\nCreate your rental account now.",
+                        "Ready to earn with your vehicle? Sign up now to start hosting and let your vehicles work for you!",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),

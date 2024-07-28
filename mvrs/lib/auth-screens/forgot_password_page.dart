@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mvrs/auth/validators/auth_input_validation_mixin.dart';
+import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 
-class ForgotPasswordVerificationPage extends StatefulWidget {
-  const ForgotPasswordVerificationPage({super.key});
+class ForgetPasswordPage extends StatefulWidget {
+  const ForgetPasswordPage({super.key});
 
   @override
-  State<ForgotPasswordVerificationPage> createState() =>
-      _ForgotPasswordVerificationPageState();
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
 }
 
-class _ForgotPasswordVerificationPageState
-    extends State<ForgotPasswordVerificationPage>
+class _ForgetPasswordPageState extends State<ForgetPasswordPage>
     with AuthInputValidationMixin {
-  final _forgotPasswordVerificationFormGlobalKey = GlobalKey<FormState>();
-  final TextEditingController _otpCodeController = TextEditingController();
+  final _forgotPasswordFormGlobalKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
 
-  bool _isOtpCodeValid = true;
+  bool _isEmailValid = true;
 
   @override
   void dispose() {
-    _otpCodeController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 7,
+        backgroundColor: Colors.transparent,
+        title: const Text("Forget your password"),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+          top: 0,
+          left: 16.0,
+          right: 16.0,
+          bottom: 16.0,
+        ),
         child: Center(
           child: Card(
             elevation: 7,
@@ -54,47 +62,35 @@ class _ForgotPasswordVerificationPageState
                     // Placeholder for the image
                     Container(
                       child: SvgPicture.asset(
-                        'assets/svg-images/otp-verification-banner.svg',
+                        'assets/svg-images/forget-password-banner.svg',
                         width: 800,
                         height: 300,
                       ),
                     ),
                     Text(
-                      "Verify it's you",
+                      "Password Recovery",
                       style: TextStyle(
                         fontSize: 45,
                         fontFamily: "Cookie",
                       ),
                     ),
                     Text(
-                      "We’ll text you a code on your email to verify it's actually you trying to reset your password.",
+                      "Drop your email here, and we’ll send you a magic code to reset your password!",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
-                    SizedBox(height: 5),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Resend code if not received.",
-                        style: TextStyle(
-                          color: Colors.purple,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     SizedBox(height: 20),
                     Form(
-                      key: _forgotPasswordVerificationFormGlobalKey,
+                      key: _forgotPasswordFormGlobalKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           TextFormField(
-                            controller: _otpCodeController,
-                            maxLength: 6,
-                            keyboardType: TextInputType.number,
+                            controller: _emailController,
+                            maxLength: 255,
                             decoration: InputDecoration(
-                              labelText: 'OTP Code',
+                              labelText: 'Email',
                               labelStyle: TextStyle(
                                 color: Colors.grey[700],
                                 fontWeight: FontWeight.bold,
@@ -112,22 +108,21 @@ class _ForgotPasswordVerificationPageState
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red),
                               ),
-                              suffixIcon: _isOtpCodeValid
+                              suffixIcon: _isEmailValid
                                   ? null
                                   : Icon(Icons.error_outline_outlined),
                             ),
-                            validator: (otpCode) {
+                            validator: (email) {
                               String? message =
-                                  AuthInputValidationMixin.isOtpCodeValid(
-                                      otpCode);
+                                  AuthInputValidationMixin.isEmailValid(email);
                               if (message == null) {
                                 setState(() {
-                                  _isOtpCodeValid = true;
+                                  _isEmailValid = true;
                                 });
                                 return null;
                               } else {
                                 setState(() {
-                                  _isOtpCodeValid = false;
+                                  _isEmailValid = false;
                                 });
                                 return message;
                               }
@@ -137,11 +132,10 @@ class _ForgotPasswordVerificationPageState
                           ElevatedButton(
                             onPressed: () {
                               // Handle sign in
-                              if (_forgotPasswordVerificationFormGlobalKey
-                                  .currentState!
+                              if (_forgotPasswordFormGlobalKey.currentState!
                                   .validate()) {
-                                Navigator.pushReplacementNamed(
-                                    context, "/reset-password");
+                                Navigator.pushNamed(
+                                    context, "/forget-password-verification");
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -158,7 +152,7 @@ class _ForgotPasswordVerificationPageState
                                   horizontal: 60, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
-                            child: Text('Verify'),
+                            child: Text('Send Code'),
                           ),
                         ],
                       ),

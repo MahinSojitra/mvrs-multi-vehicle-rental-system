@@ -1,27 +1,38 @@
-import 'package:flutter/material.dart';
-import 'package:mvrs/auth/validators/auth_input_validation_mixin.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
-class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
+
+class UserSignUpPage extends StatefulWidget {
+  const UserSignUpPage({super.key});
 
   @override
-  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+  State<UserSignUpPage> createState() => _UserSignUpPageState();
 }
 
-class _ResetPasswordPageState extends State<ResetPasswordPage>
+class _UserSignUpPageState extends State<UserSignUpPage>
     with AuthInputValidationMixin {
-  final _resetPasswordFormGlobalKey = GlobalKey<FormState>();
+  final _signUpFormGlobalKey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   bool _passwordVisiblityHide = true;
+  bool _isFirstNameValid = true;
+  bool _isUsernameValid = true;
+  bool _isEmailValid = true;
   // ignore: unused_field
   bool _isPasswordValid = true;
   bool _isConfirmPasswordValid = true;
 
   @override
   void dispose() {
+    _firstNameController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -51,7 +62,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                   children: [
                     Center(
                       child: const Text(
-                        'Reset Password',
+                        'Welcome',
                         style: TextStyle(
                           fontSize: 50,
                           fontFamily: "Cookie",
@@ -62,24 +73,151 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                     ),
                     Center(
                       child: const Text(
-                        "Create your new password below to complete your password reset.",
+                        "Discover the city or explore beyond.\nCreate your rental account now.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
                     const SizedBox(height: 20),
                     Form(
-                      key: _resetPasswordFormGlobalKey,
+                      key: _signUpFormGlobalKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          TextFormField(
+                            controller: _firstNameController,
+                            decoration: InputDecoration(
+                              labelText: 'First Name',
+                              labelStyle: TextStyle(
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.bold,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey[800]!),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.purple),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              suffixIcon: _isFirstNameValid
+                                  ? null
+                                  : Icon(Icons.error_outline_outlined),
+                            ),
+                            validator: (firstName) {
+                              String? message =
+                                  AuthInputValidationMixin.isFirstNameValid(
+                                      firstName);
+                              if (message == null) {
+                                setState(() {
+                                  _isFirstNameValid = true;
+                                });
+                                return null;
+                              } else {
+                                setState(() {
+                                  _isFirstNameValid = false;
+                                });
+                                return message;
+                              }
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: _usernameController,
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                              labelStyle: TextStyle(
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.bold,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey[800]!),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.purple),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              suffixIcon: _isUsernameValid
+                                  ? null
+                                  : Icon(Icons.error_outline_outlined),
+                            ),
+                            validator: (username) {
+                              String? message =
+                                  AuthInputValidationMixin.isUsernameValid(
+                                      username);
+                              if (message == null) {
+                                setState(() {
+                                  _isUsernameValid = true;
+                                });
+                                return null;
+                              } else {
+                                setState(() {
+                                  _isUsernameValid = false;
+                                });
+                                return message;
+                              }
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.bold,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey[800]!),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.purple),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              suffixIcon: _isEmailValid
+                                  ? null
+                                  : Icon(Icons.error_outline_outlined),
+                            ),
+                            validator: (email) {
+                              String? message =
+                                  AuthInputValidationMixin.isEmailValid(email);
+                              if (message == null) {
+                                setState(() {
+                                  _isEmailValid = true;
+                                });
+                                return null;
+                              } else {
+                                setState(() {
+                                  _isEmailValid = false;
+                                });
+                                return message;
+                              }
+                            },
+                          ),
                           SizedBox(height: 10),
                           TextFormField(
                             controller: _passwordController,
                             obscureText: _passwordVisiblityHide,
                             decoration: InputDecoration(
-                              labelText: 'New Passsword',
+                              labelText: 'Passsword',
                               labelStyle: TextStyle(
                                 color: Colors.grey[700],
                                 fontWeight: FontWeight.bold,
@@ -136,7 +274,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                             controller: _confirmPasswordController,
                             obscureText: _passwordVisiblityHide,
                             decoration: InputDecoration(
-                              labelText: 'Confirm New Password',
+                              labelText: 'Confirm Password',
                               labelStyle: TextStyle(
                                 color: Colors.grey[700],
                                 fontWeight: FontWeight.bold,
@@ -179,10 +317,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                           ElevatedButton(
                             onPressed: () {
                               // Handle sign in
-                              if (_resetPasswordFormGlobalKey.currentState!
-                                  .validate()) {
-                                Navigator.pushReplacementNamed(context, "/");
-                              }
+                              _signUpFormGlobalKey.currentState!.validate();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
@@ -195,12 +330,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 50, vertical: 15),
+                                  horizontal: 60, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
-                            child: Text('Reset Password'),
+                            child: Text('Sign up'),
                           ),
                           SizedBox(height: 20),
+                          TextButton(
+                            onPressed: () {
+                              // Handle sign up
+                              Navigator.pushReplacementNamed(context, "/");
+                            },
+                            child: Text("Already joined? Access your account!"),
+                          ),
                         ],
                       ),
                     )

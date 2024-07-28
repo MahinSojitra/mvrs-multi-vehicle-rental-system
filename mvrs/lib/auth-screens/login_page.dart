@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mvrs/auth/validators/auth_input_validation_mixin.dart';
+import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -211,9 +211,17 @@ class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
                             onPressed: () {
                               // Handle sign up
                               Navigator.pushReplacementNamed(
-                                  context, "/signup");
+                                  context, "/user-signup");
                             },
                             child: Text("Don't have an account? Sign up here"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Handle sign up
+                              Navigator.pushReplacementNamed(
+                                  context, "/host-signup");
+                            },
+                            child: Text("Want host your vehicle? Sign up here"),
                           ),
                         ],
                       ),
