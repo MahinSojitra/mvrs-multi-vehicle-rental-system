@@ -58,7 +58,6 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 10),
                     Center(
                       child: const Text(
                         'Welcome',
@@ -70,7 +69,6 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
                     Center(
                       child: const Text(
                         "Discover the city or explore beyond.\nCreate your rental account now.",
@@ -317,11 +315,7 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
                           ElevatedButton(
                             onPressed: () {
                               // Handle sign in
-                              if (_signUpFormGlobalKey.currentState!
-                                  .validate()) {
-                                // If the form is valid, display a snackbar. If there are any
-                                // errors, return them
-                              }
+                              _signUpFormGlobalKey.currentState!.validate();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
@@ -334,7 +328,7 @@ class _SignUpPageState extends State<SignUpPage> with AuthInputValidationMixin {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 100, vertical: 15),
+                                  horizontal: 60, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
                             child: Text('Sign up'),

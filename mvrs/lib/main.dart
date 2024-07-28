@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvrs/auth/forgot_password_page.dart';
+import 'package:mvrs/auth/forgot_password_verification_page.dart';
 import 'package:mvrs/auth/login_page.dart';
+import 'package:mvrs/auth/reset_password_page.dart';
 import 'package:mvrs/auth/signup_page.dart';
 
 void main() {
@@ -23,6 +25,9 @@ class MyApp extends StatelessWidget {
         "/": (context) => LoginPage(),
         "/signup": (context) => SignUpPage(),
         "/forget-password": (context) => ForgetPasswordPage(),
+        "/forget-password-verification": (context) =>
+            ForgotPasswordVerificationPage(),
+        "/reset-password": (context) => ResetPasswordPage(),
       },
     );
   }

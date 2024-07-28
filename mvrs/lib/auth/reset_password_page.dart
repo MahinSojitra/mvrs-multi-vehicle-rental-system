@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvrs/auth/validators/auth_input_validation_mixin.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
-  final _signInFormGlobalKey = GlobalKey<FormState>();
+class _ResetPasswordPageState extends State<ResetPasswordPage>
+    with AuthInputValidationMixin {
+  final _resetPasswordFormGlobalKey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _passwordVisiblityHide = true;
+  bool _isFirstNameValid = true;
+  bool _isUsernameValid = true;
   bool _isEmailValid = true;
+  // ignore: unused_field
   bool _isPasswordValid = true;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
+  bool _isConfirmPasswordValid = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Center(
           child: Card(
             elevation: 7,
@@ -44,82 +44,40 @@ class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    // Placeholder for the image
-                    Container(
-                      height: 200,
-                      child: SvgPicture.asset(
-                        'assets/svg-images/login-page-car-banner.svg',
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: const Text(
+                        'Reset Password',
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: "Cookie",
+                          fontWeight: FontWeight
+                              .bold, // Optional: for better readability
+                        ),
                       ),
                     ),
-                    Text(
-                      'Welcome back!',
-                      style: TextStyle(
-                        fontSize: 45,
-                        fontFamily: "Cookie",
+                    Center(
+                      child: const Text(
+                        "Create your new password below to complete your password reset.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
-                    Text(
-                      'Travel and live the new experience of rent the vehicle from your home',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Form(
-                      key: _signInFormGlobalKey,
+                      key: _resetPasswordFormGlobalKey,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          TextFormField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.bold,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey[800]!),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                              ),
-                              suffixIcon: _isEmailValid
-                                  ? null
-                                  : Icon(Icons.error_outline_outlined),
-                            ),
-                            validator: (email) {
-                              String? message =
-                                  AuthInputValidationMixin.isEmailValid(email);
-                              if (message == null) {
-                                setState(() {
-                                  _isEmailValid = true;
-                                });
-                                return null;
-                              } else {
-                                setState(() {
-                                  _isEmailValid = false;
-                                });
-                                return message;
-                              }
-                            },
-                          ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           SizedBox(height: 10),
                           TextFormField(
                             controller: _passwordController,
                             obscureText: _passwordVisiblityHide,
                             decoration: InputDecoration(
-                              labelText: 'Password',
+                              labelText: 'New Passsword',
                               labelStyle: TextStyle(
                                 color: Colors.grey[700],
                                 fontWeight: FontWeight.bold,
@@ -172,23 +130,57 @@ class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
                             },
                           ),
                           SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              style: TextButton.styleFrom(),
-                              onPressed: () {
-                                // Handle forgot password
-                                Navigator.pushNamed(
-                                    context, "/forget-password");
-                              },
-                              child: Text('Forgot your password?'),
+                          TextFormField(
+                            controller: _confirmPasswordController,
+                            obscureText: _passwordVisiblityHide,
+                            decoration: InputDecoration(
+                              labelText: 'Confirm New Password',
+                              labelStyle: TextStyle(
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.bold,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey[800]!),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.purple),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              suffixIcon: _isConfirmPasswordValid
+                                  ? null
+                                  : Icon(Icons.error_outline_outlined),
                             ),
+                            validator: (confirmPassword) {
+                              String? message = AuthInputValidationMixin
+                                  .isConfirmPasswordValid(confirmPassword,
+                                      _passwordController.text);
+                              if (message == null) {
+                                setState(() {
+                                  _isConfirmPasswordValid = true;
+                                });
+                                return null;
+                              } else {
+                                setState(() {
+                                  _isConfirmPasswordValid = false;
+                                });
+                                return message;
+                              }
+                            },
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
                               // Handle sign in
-                              _signInFormGlobalKey.currentState!.validate();
+                              if (_resetPasswordFormGlobalKey.currentState!
+                                  .validate()) {
+                                Navigator.pushReplacementNamed(context, "/");
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
@@ -201,20 +193,12 @@ class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 60, vertical: 15),
+                                  horizontal: 50, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
-                            child: Text('Sign in'),
+                            child: Text('Reset Password'),
                           ),
                           SizedBox(height: 20),
-                          TextButton(
-                            onPressed: () {
-                              // Handle sign up
-                              Navigator.pushReplacementNamed(
-                                  context, "/signup");
-                            },
-                            child: Text("Don't have an account? Sign up here"),
-                          ),
                         ],
                       ),
                     )

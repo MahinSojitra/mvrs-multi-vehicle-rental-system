@@ -87,4 +87,17 @@ mixin AuthInputValidationMixin {
     }
     return null;
   }
+
+  static String? isOtpCodeValid(String? otpCode) {
+    if (otpCode == null || otpCode.isEmpty) {
+      return 'OTP code cannot be empty';
+    }
+    if (otpCode.length != 6) {
+      return 'OTP code must be 6 characters long';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(otpCode)) {
+      return 'OTP code only contains numbers';
+    }
+    return null;
+  }
 }
