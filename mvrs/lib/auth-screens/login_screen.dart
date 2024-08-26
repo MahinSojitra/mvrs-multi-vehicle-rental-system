@@ -189,9 +189,10 @@ class _LoginPageState extends State<LoginScreen> with AuthInputValidationMixin {
                           ElevatedButton(
                             onPressed: () {
                               // Handle sign in
-                              _signInFormGlobalKey.currentState!.validate();
-                              Navigator.pushReplacementNamed(
-                                  context, "/dashboard");
+                              if (_signInFormGlobalKey.currentState!
+                                  .validate()) {
+                                Navigator.pushReplacementNamed(context, "/");
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,

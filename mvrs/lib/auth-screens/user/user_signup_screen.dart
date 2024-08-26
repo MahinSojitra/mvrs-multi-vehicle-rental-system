@@ -339,7 +339,8 @@ class _UserSignUpPageState extends State<UserSignUpScreen>
                           TextButton(
                             onPressed: () {
                               // Handle sign up
-                              Navigator.pushReplacementNamed(context, "/");
+                              Navigator.pushReplacementNamed(
+                                  context, "/signin");
                             },
                             child: Text("Already joined? Access your account!"),
                           ),

@@ -28,14 +28,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        "/": (context) => LoginScreen(),
+        "/": (context) => DashboardScreen(),
+        "/signin": (context) => LoginScreen(),
         "/user-signup": (context) => UserSignUpScreen(),
         "/host-signup": (context) => HostSignUpScreen(),
         "/forget-password": (context) => ForgetPasswordScreen(),
         "/forget-password-verification": (context) =>
             ForgotPasswordVerificationScreen(),
         "/reset-password": (context) => ResetPasswordScreen(),
-        "/dashboard": (context) => DashboardScreen(),
       },
     );
   }

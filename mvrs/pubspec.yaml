@@ -64,6 +64,9 @@ flutter:
     - assets/svg-images/login-page-car-banner.svg
     - assets/svg-images/forget-password-banner.svg
     - assets/svg-images/otp-verification-banner.svg
+    - assets/svg-images/profile-pic-empty-svg.svg
+    - assets/svg-images/signin-indication-page-svg.svg
+    - assets/jpg-images/profile-pic-empty-jpg.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

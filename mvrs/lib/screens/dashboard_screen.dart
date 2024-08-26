@@ -48,6 +48,27 @@ class _HomeScreenState extends State<DashboardScreen> {
             Icons.dashboard_customize,
             color: Colors.purple,
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.purple,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Tooltip(
+                  message: 'Sign Out',
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ), // Use the logout icon from Material Icons
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+          ],
           title: Text(
             _appBarTitles[_selectedIndex],
             style: TextStyle(
