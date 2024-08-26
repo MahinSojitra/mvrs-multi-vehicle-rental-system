@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
+class _LoginPageState extends State<LoginScreen> with AuthInputValidationMixin {
   final _signInFormGlobalKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _passwordVisiblityHide = true;
   bool _isEmailValid = true;
+  // ignore: unused_field
   bool _isPasswordValid = true;
 
   @override
@@ -189,6 +190,8 @@ class _LoginPageState extends State<LoginPage> with AuthInputValidationMixin {
                             onPressed: () {
                               // Handle sign in
                               _signInFormGlobalKey.currentState!.validate();
+                              Navigator.pushReplacementNamed(
+                                  context, "/dashboard");
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,

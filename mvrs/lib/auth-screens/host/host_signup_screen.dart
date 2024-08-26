@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 
-class UserSignUpPage extends StatefulWidget {
-  const UserSignUpPage({super.key});
+class HostSignUpScreen extends StatefulWidget {
+  const HostSignUpScreen({super.key});
 
   @override
-  State<UserSignUpPage> createState() => _UserSignUpPageState();
+  State<HostSignUpScreen> createState() => _HostSignUpPageState();
 }
 
-class _UserSignUpPageState extends State<UserSignUpPage>
+class _HostSignUpPageState extends State<HostSignUpScreen>
     with AuthInputValidationMixin {
   final _signUpFormGlobalKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
@@ -73,7 +73,7 @@ class _UserSignUpPageState extends State<UserSignUpPage>
                     ),
                     Center(
                       child: const Text(
-                        "Discover the city or explore beyond.\nCreate your rental account now.",
+                        "Ready to earn with your vehicle? Sign up now to start hosting and let your vehicles work for you!",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),

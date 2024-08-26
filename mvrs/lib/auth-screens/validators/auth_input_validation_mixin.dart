@@ -93,7 +93,7 @@ mixin AuthInputValidationMixin {
       return 'OTP code cannot be empty';
     }
     if (otpCode.length != 6) {
-      return 'OTP code must be 6 characters long';
+      return 'OTP code must be 6 digits long';
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(otpCode)) {
       return 'OTP code only contains numbers';
