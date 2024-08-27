@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MyTripCardWidget extends StatefulWidget {
-  int tripNumber;
-  String tripCode;
-  DateTime startDate;
-  DateTime endDate;
-  String vehicleModel;
-  double totalFare;
+  final int tripNumber;
+  final String tripCode;
+  final DateTime startDate;
+  final DateTime endDate;
+  final String vehicleModel;
+  final double totalFare;
 
   // Format amount with Indian Rupee symbol
   final NumberFormat currencyFormater = NumberFormat.currency(
@@ -93,7 +93,8 @@ class _MyTripCardWidgetState extends State<MyTripCardWidget> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Action to be performed
+                      // Handle how are we doing button press
+                      Navigator.pushNamed(context, "/feedback-form");
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.green, // Text color

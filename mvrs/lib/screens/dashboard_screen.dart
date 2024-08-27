@@ -63,7 +63,9 @@ class _HomeScreenState extends State<DashboardScreen> {
                       Icons.logout,
                       color: Colors.white,
                     ), // Use the logout icon from Material Icons
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, "/signin");
+                    },
                   ),
                 ),
               ),
