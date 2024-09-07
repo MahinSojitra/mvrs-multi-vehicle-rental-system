@@ -1,3 +1,5 @@
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
 mixin AuthInputValidationMixin {
   static final RegExp _firstNameRegExp = RegExp(
     r"^[A-Z][a-z]*$",
@@ -20,7 +22,7 @@ mixin AuthInputValidationMixin {
       return "First name cannot be empty";
     }
     if (firstName.length < 3) {
-      return "First name should be at least 3 characters long";
+      return "First name should be at least 3 characters long.";
     }
     if (!_firstNameRegExp.hasMatch(firstName)) {
       return "First name must start with an uppercase and be alphabetic.";
@@ -33,7 +35,7 @@ mixin AuthInputValidationMixin {
       return "Last name cannot be empty";
     }
     if (lastName.length < 3) {
-      return "Last name should be at least 3 characters long";
+      return "Last name should be at least 3 characters long.";
     }
     if (!_lastNameRegExp.hasMatch(lastName)) {
       return "Last name must start with an uppercase and be alphabetic.";
@@ -43,20 +45,33 @@ mixin AuthInputValidationMixin {
 
   static String? isEmailValid(String? email) {
     if (email == null || email.isEmpty) {
-      return 'Email cannot be empty';
+      return 'Email cannot be empty.';
     }
     if (!_emailRegExp.hasMatch(email)) {
-      return 'Enter a valid email address';
+      return 'Enter a valid email address.';
     }
     return null; // Return null if no validation errors
   }
 
+  static String? isPhoneNumberValid(PhoneNumber phoneNumber) {
+    if (phoneNumber.phoneNumber == null || phoneNumber.phoneNumber!.isEmpty) {
+      return 'Please enter your phone number.';
+    }
+
+    final phoneRegex = RegExp(r'^\+?[1-9]\d{1,14}$');
+    if (!phoneRegex.hasMatch(phoneNumber.phoneNumber!)) {
+      return 'Please enter a valid phone number.';
+    }
+
+    return null; // Return null if the phone number is valid
+  }
+
   static String? isUsernameValid(String? username) {
     if (username == null || username.isEmpty) {
-      return 'Username cannot be empty';
+      return 'Username cannot be empty.';
     }
     if (username.length < 3 || username.length > 20) {
-      return 'Username must be 3-20 characters';
+      return 'Username must be 3-20 characters.';
     }
     if (!_usernameRegExp.hasMatch(username)) {
       return 'Username must have only letters, numbers, and underscores.';
@@ -66,10 +81,10 @@ mixin AuthInputValidationMixin {
 
   static String? isPasswordValid(String? password) {
     if (password == null || password.isEmpty) {
-      return 'Password cannot be empty';
+      return 'Password cannot be empty.';
     }
     if (password.length < 8) {
-      return 'Password must be at least 8 characters long';
+      return 'Password must be at least 8 characters long.';
     }
     if (!_passwordRegExp.hasMatch(password)) {
       return 'Password needs upper, lower, digit, and special character.';
@@ -80,23 +95,23 @@ mixin AuthInputValidationMixin {
   static String? isConfirmPasswordValid(
       String? confirmPassword, String password) {
     if (confirmPassword == null || confirmPassword.isEmpty) {
-      return 'Confirm password cannot be empty';
+      return 'Confirm password cannot be empty.';
     }
     if (confirmPassword != password) {
-      return 'Passwords do not match';
+      return 'Passwords do not match.';
     }
     return null;
   }
 
   static String? isOtpCodeValid(String? otpCode) {
     if (otpCode == null || otpCode.isEmpty) {
-      return 'OTP code cannot be empty';
+      return 'OTP code cannot be empty.';
     }
     if (otpCode.length != 6) {
-      return 'OTP code must be 6 digits long';
+      return 'OTP code must be 6 digits long.';
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(otpCode)) {
-      return 'OTP code only contains numbers';
+      return 'OTP code only contains numbers.';
     }
     return null;
   }

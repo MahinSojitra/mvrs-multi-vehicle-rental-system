@@ -128,7 +128,9 @@ class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/edit-profile");
+                    },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.green, // Text color
                       padding: EdgeInsets.symmetric(

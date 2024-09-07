@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ProfileDetailsCardWidget(
                 username: "MahinSojitra",
                 email: "mahinsojitra16@gmail.com",
-                phone: "+91 123456789",
+                phone: "+91 9104851608",
                 dob: DateTime(2003, 03, 16),
                 totalRentalTrips: 5,
                 totalSpent: 100000,
