@@ -161,6 +161,25 @@ class _UserFeedbackFormScreenState extends State<UserFeedbackFormScreen> {
                       // Process the feedback
                       print('Rating: $_rating');
                       print('Feedback submitted: ${_feedbackController.text}');
+
+                      Navigator.pop(context);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          behavior: SnackBarBehavior.fixed,
+                          duration: Duration(seconds: 7),
+                          elevation: 5,
+                          content: Text(
+                            "Thanks a bunch for your feedback! We appreciate it!",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
                     }
                   },
                   style: TextButton.styleFrom(

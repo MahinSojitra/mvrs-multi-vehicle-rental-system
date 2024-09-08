@@ -8,7 +8,8 @@ class CustomBannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
+      height: 50,
+      width: double.infinity,
       decoration: BoxDecoration(
         gradient: RadialGradient(
           center: Alignment.center,

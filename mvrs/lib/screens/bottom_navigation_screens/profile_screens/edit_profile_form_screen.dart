@@ -562,6 +562,23 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                 onPressed: () {
                   if (_editProfileFormKey.currentState!.validate()) {
                     Navigator.of(context).pop();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        behavior: SnackBarBehavior.fixed,
+                        duration: Duration(seconds: 7),
+                        elevation: 5,
+                        content: Text(
+                          "Your profile has been updated.",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 },
                 style: TextButton.styleFrom(
@@ -586,5 +603,3 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
     );
   }
 }
-
-mixin isValidNumber {}
