@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "477226800444",
+    "firebase_url": "https://mvrs-def68-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mvrs-def68",
+    "storage_bucket": "mvrs-def68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477226800444:android:804710cefaf7ae6fc4ba39",
+        "android_client_info": {
+          "package_name": "com.android.mvrs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQeh3KA-77OkMw7LKi2CJgsFuePp2L6fM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

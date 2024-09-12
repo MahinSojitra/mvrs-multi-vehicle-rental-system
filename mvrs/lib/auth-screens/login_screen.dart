@@ -1,6 +1,12 @@
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
+import 'package:mvrs/entities/custom_message.dart';
+import 'package:mvrs/entities/signin_state_user.dart';
+import 'package:mvrs/services/user_authentication_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,16 +20,88 @@ class _LoginPageState extends State<LoginScreen> with AuthInputValidationMixin {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  late UserAuthenticationService _userAuthenticationService;
+  static DelightToastBar? _toastBar;
+
   bool _passwordVisiblityHide = true;
   bool _isEmailValid = true;
   // ignore: unused_field
   bool _isPasswordValid = true;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    _userAuthenticationService = UserAuthenticationService();
+    super.initState();
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _signIn() async {
+    if (_signInFormGlobalKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      CustomMessage message =
+          await _userAuthenticationService.signInWithEmailAndPassword(
+        SigninStateUser(_emailController.text, _passwordController.text),
+      );
+
+      if (message.cause == "Success") {
+        _showToastMessage(message);
+        _gotoDashboard();
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+
+        _showToastMessage(message);
+      }
+    }
+  }
+
+  void _gotoDashboard() {
+    Navigator.of(context).pushReplacementNamed('/');
+  }
+
+  void _showToastMessage(CustomMessage message) {
+    _toastBar = DelightToastBar(
+      position: DelightSnackbarPosition.top,
+      autoDismiss: true,
+      animationDuration: Duration(milliseconds: 15),
+      builder: (context) => ToastCard(
+        leading: Icon(
+          Icons.flutter_dash,
+          size: 30,
+          color: Colors.blue,
+        ),
+        title: Text(
+          "${message.description}.",
+          style: TextStyle(
+            fontSize: message.cause == "Success" ? 14 : 12,
+            fontWeight:
+                message.cause == "Success" ? FontWeight.bold : FontWeight.w700,
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: null,
+          icon: Icon(
+            message.cause == "Success" ? Icons.verified : Icons.error_outline,
+            size: 25,
+            color: message.cause == "Success" ? Colors.green : Colors.red,
+          ),
+        ),
+      ),
+    );
+    setState(() {
+      _toastBar?.show(context);
+    });
   }
 
   @override
@@ -187,28 +265,40 @@ class _LoginPageState extends State<LoginScreen> with AuthInputValidationMixin {
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {
-                              // Handle sign in
-                              if (_signInFormGlobalKey.currentState!
-                                  .validate()) {
-                                Navigator.pushReplacementNamed(context, "/");
-                              }
-                            },
+                            onPressed: _isLoading ? null : _signIn,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
+                              disabledBackgroundColor: Colors.blue.shade300,
+                              disabledForegroundColor: Colors.white,
                               shadowColor: Colors.blue,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Colors.blueAccent, width: 2),
+                                side: _isLoading
+                                    ? BorderSide(
+                                        color: Colors.blue.shade300,
+                                        width: 2,
+                                      )
+                                    : BorderSide(
+                                        color: Colors.blueAccent,
+                                        width: 2,
+                                      ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 60, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
-                            child: Text('Sign in'),
+                            child: _isLoading
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : Text('Sign in'),
                           ),
                           SizedBox(height: 20),
                           TextButton(
@@ -219,14 +309,14 @@ class _LoginPageState extends State<LoginScreen> with AuthInputValidationMixin {
                             },
                             child: Text("Don't have an account? Sign up here"),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              // Handle sign up
-                              Navigator.pushReplacementNamed(
-                                  context, "/host-signup");
-                            },
-                            child: Text("Want host your vehicle? Sign up here"),
-                          ),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     // Handle sign up
+                          //     Navigator.pushReplacementNamed(
+                          //         context, "/host-signup");
+                          //   },
+                          //   child: Text("Want host your vehicle? Sign up here"),
+                          // ),
                         ],
                       ),
                     )

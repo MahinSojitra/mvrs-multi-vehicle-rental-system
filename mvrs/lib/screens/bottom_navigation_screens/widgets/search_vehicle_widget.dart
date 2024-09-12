@@ -42,7 +42,7 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
   String _selectedCity = "";
   DateTime _tripStart = DateTime.now();
   DateTime _tripEnd = DateTime.now().add(Duration(hours: 1));
-  final DateFormat _dateFormat = DateFormat('MMM d, ha');
+  final DateFormat _dateFormat = DateFormat('MMM d, h:m a');
   int _selectedIndex = 0; // Index of the selected button
 
   @override
@@ -230,6 +230,9 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
                           child: TextFormField(
                             controller: _tripStartDateTimeController,
                             readOnly: true,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                             decoration: InputDecoration(
                               labelText: 'Trip Starts',
                               labelStyle: TextStyle(
@@ -270,6 +273,9 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
                           child: TextFormField(
                             controller: _tripEndDateTimeController,
                             readOnly: true,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                             decoration: InputDecoration(
                               labelText: 'Trip Ends',
                               labelStyle: TextStyle(

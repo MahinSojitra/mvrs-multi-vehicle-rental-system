@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class UserSigninIndicationScreen extends StatelessWidget {
+  final String title;
   final String subTitle;
 
-  const UserSigninIndicationScreen({Key? key, required this.subTitle});
+  const UserSigninIndicationScreen({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +24,24 @@ class UserSigninIndicationScreen extends StatelessWidget {
               height: 100,
             ),
             SizedBox(height: 5),
-            Text(
-              'Discover your perfect vehicle now!',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-            Text(
-              subTitle,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.green.shade500,
-              ),
+            Column(
+              children: [
+                Text(
+                  "${title}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                Text(
+                  "${subTitle}.",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.green.shade500,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10), // Space between text and button
             TextButton(
