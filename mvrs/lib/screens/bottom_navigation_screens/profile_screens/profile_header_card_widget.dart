@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProfileHeaderCardWidget extends StatefulWidget {
-  final String imageUrl;
+  final Uri imageUrl;
   final String firstName;
-  final String lastName;
+  final String? lastName;
   final DateTime joinedDate;
 
   ProfileHeaderCardWidget({

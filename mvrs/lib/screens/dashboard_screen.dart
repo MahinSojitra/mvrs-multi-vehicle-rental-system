@@ -157,7 +157,8 @@ class _HomeScreenState extends State<DashboardScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Icon(
-            Icons.dashboard_customize,
+            Icons.dashboard,
+            size: 35,
             color: Colors.purple,
           ),
           actions: [

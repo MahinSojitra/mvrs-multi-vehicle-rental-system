@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
+import 'package:mvrs/entities/custom_message.dart';
+import 'package:mvrs/entities/signup_state_user.dart';
+import 'package:mvrs/services/user_authentication_service.dart';
 
 class UserSignUpScreen extends StatefulWidget {
   const UserSignUpScreen({super.key});
@@ -27,6 +33,16 @@ class _UserSignUpPageState extends State<UserSignUpScreen>
   // ignore: unused_field
   bool _isPasswordValid = true;
   bool _isConfirmPasswordValid = true;
+  bool _isLoading = false;
+
+  late UserAuthenticationService _userAuthenticationService;
+  static DelightToastBar? _toastBar;
+
+  @override
+  void initState() {
+    _userAuthenticationService = UserAuthenticationService();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -36,6 +52,73 @@ class _UserSignUpPageState extends State<UserSignUpScreen>
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _signUp() async {
+    if (_signUpFormGlobalKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      CustomMessage message =
+          await _userAuthenticationService.signUpWithEmailAndPassword(
+        SignupStateUser(
+          _firstNameController.text,
+          _usernameController.text,
+          _emailController.text,
+          _passwordController.text,
+        ),
+      );
+
+      if (message.cause == "Success") {
+        _showToastMessage(message);
+        _gotoDashboard();
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+
+        _showToastMessage(message);
+      }
+    }
+  }
+
+  void _gotoDashboard() {
+    Navigator.of(context).pushReplacementNamed('/');
+  }
+
+  void _showToastMessage(CustomMessage message) {
+    _toastBar = DelightToastBar(
+      position: DelightSnackbarPosition.top,
+      autoDismiss: true,
+      animationDuration: Duration(milliseconds: 15),
+      builder: (context) => ToastCard(
+        leading: Icon(
+          Icons.flutter_dash,
+          size: 30,
+          color: Colors.blue,
+        ),
+        title: Text(
+          "${message.description}.",
+          style: TextStyle(
+            fontSize: message.cause == "Success" ? 14 : 12,
+            fontWeight:
+                message.cause == "Success" ? FontWeight.bold : FontWeight.w700,
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: null,
+          icon: Icon(
+            message.cause == "Success" ? Icons.verified : Icons.error_outline,
+            size: 25,
+            color: message.cause == "Success" ? Colors.green : Colors.red,
+          ),
+        ),
+      ),
+    );
+    setState(() {
+      _toastBar?.show(context);
+    });
   }
 
   @override
@@ -315,25 +398,40 @@ class _UserSignUpPageState extends State<UserSignUpScreen>
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {
-                              // Handle sign in
-                              _signUpFormGlobalKey.currentState!.validate();
-                            },
+                            onPressed: _isLoading ? null : _signUp,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,
+                              disabledBackgroundColor: Colors.blue.shade300,
+                              disabledForegroundColor: Colors.white,
                               shadowColor: Colors.blue,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Colors.blueAccent, width: 2),
+                                side: _isLoading
+                                    ? BorderSide(
+                                        color: Colors.blue.shade300,
+                                        width: 2,
+                                      )
+                                    : BorderSide(
+                                        color: Colors.blueAccent,
+                                        width: 2,
+                                      ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 60, vertical: 15),
                               textStyle: TextStyle(fontSize: 18),
                             ),
-                            child: Text('Sign up'),
+                            child: _isLoading
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : Text('Sign in'),
                           ),
                           SizedBox(height: 20),
                           TextButton(

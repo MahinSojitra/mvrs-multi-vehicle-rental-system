@@ -7,6 +7,7 @@ import 'package:mvrs/auth-screens/login_screen.dart';
 import 'package:mvrs/auth-screens/reset_password_screen.dart';
 import 'package:mvrs/auth-screens/user/user_signup_screen.dart';
 import 'package:mvrs/firebase_options.dart';
+import 'package:mvrs/screens/app_splash_screen.dart';
 import 'package:mvrs/screens/bottom_navigation_screens/feedback_screens/user_feedback_form_screen.dart';
 import 'package:mvrs/screens/bottom_navigation_screens/profile_screens/edit_profile_form_screen.dart';
 import 'package:mvrs/screens/dashboard_screen.dart';
@@ -34,9 +35,10 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/app-splash",
       routes: {
         "/": (context) => DashboardScreen(),
+        "/app-splash": (context) => AppSplashScreen(),
         "/signin": (context) => LoginScreen(),
         "/user-signup": (context) => UserSignUpScreen(),
         "/host-signup": (context) => HostSignUpScreen(),

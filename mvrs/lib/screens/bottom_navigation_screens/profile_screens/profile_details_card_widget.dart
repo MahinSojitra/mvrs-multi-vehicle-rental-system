@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProfileDetailsCardWidget extends StatefulWidget {
+  final String firstName;
+  final String? lastName;
   final String username;
   final String email;
-  final String phone;
-  final DateTime dob;
+  final String? phone;
+  final DateTime? dob;
   final int totalRentalTrips;
   final double totalSpent;
-  final String address;
+  final String? address;
 
   // Format amount with Indian Rupee symbol
   final NumberFormat currencyFormater = NumberFormat.currency(
@@ -18,6 +20,8 @@ class ProfileDetailsCardWidget extends StatefulWidget {
 
   ProfileDetailsCardWidget({
     super.key,
+    required this.firstName,
+    required this.lastName,
     required this.username,
     required this.email,
     required this.phone,
@@ -33,7 +37,7 @@ class ProfileDetailsCardWidget extends StatefulWidget {
 }
 
 class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(String label, String? value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -46,7 +50,18 @@ class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
               ),
             ),
           ),
-          Text(value),
+          value == null
+              ? Tooltip(
+                  message: 'Not available',
+                  preferBelow: true,
+                  verticalOffset: 12,
+                  child: Icon(
+                    Icons.info_outline,
+                    color: Colors.green,
+                    size: 20,
+                  ),
+                )
+              : Text(value),
         ],
       ),
     );
@@ -84,6 +99,16 @@ class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
                 thickness: 4,
               ),
               SizedBox(height: 10),
+              _buildInfoRow('First Name', widget.firstName),
+              Divider(
+                color: Colors.green,
+                thickness: 0.5,
+              ),
+              _buildInfoRow('Last Name', widget.lastName),
+              Divider(
+                color: Colors.green,
+                thickness: 0.5,
+              ),
               _buildInfoRow('Username', widget.username),
               Divider(
                 color: Colors.green,
@@ -99,8 +124,12 @@ class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
                 color: Colors.green,
                 thickness: 0.5,
               ),
-              _buildInfoRow('Date of Birth',
-                  DateFormat('dd MMM, yyyy').format(widget.dob).toString()),
+              _buildInfoRow(
+                'Date of Birth',
+                widget.dob == null
+                    ? null
+                    : DateFormat('dd MMM, yyyy').format(widget.dob!).toString(),
+              ),
               Divider(
                 color: Colors.green,
                 thickness: 0.5,

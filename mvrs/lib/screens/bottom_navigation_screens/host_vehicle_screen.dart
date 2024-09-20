@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvrs/screens/bottom_navigation_screens/user_acknowledgement_screens/user_signin_indication_screen.dart';
 import 'package:mvrs/services/user_authentication_service.dart';
 
 class HostVehicleScreen extends StatefulWidget {
@@ -23,7 +24,12 @@ class _HostVehicleScreenState extends State<HostVehicleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Placeholder(),
+      body: _isSignedIn
+          ? UserSigninIndicationScreen(
+              title: "Be a Host",
+              subTitle: "Sign in to host your vehicle",
+            )
+          : Placeholder(),
     );
   }
 }
