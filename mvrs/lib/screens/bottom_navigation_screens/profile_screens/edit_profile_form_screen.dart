@@ -1,20 +1,31 @@
+import 'dart:typed_data';
+
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 import 'package:mvrs/auth-screens/validators/auth_input_validation_mixin.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mvrs/entities/custom_message.dart';
+import 'package:mvrs/entities/edit_state_user.dart';
+import 'package:mvrs/entities/user.dart';
+import 'package:mvrs/services/user_authentication_service.dart';
+import 'package:mvrs/services/user_service.dart';
 
 class EditProfileFormScreen extends StatefulWidget {
-  const EditProfileFormScreen({super.key});
+  final User user;
 
+  const EditProfileFormScreen({super.key, required this.user});
   @override
   State<EditProfileFormScreen> createState() => _EditProfileFormScreenState();
 }
 
 class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
   final _editProfileFormKey = GlobalKey<FormState>();
-  File? _profileImage;
+  XFile? _profileImage;
+  Uint8List? _profileImageBytes;
   final _picker = ImagePicker();
   final _textForSetProfilePic =
       "Set your profile picture to enhance your account's visibility and personalize your experience.";
@@ -28,6 +39,13 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
     isoCode: 'IN',
     phoneNumber: '',
   );
+
+  bool _isLoading = false;
+
+  late UserService _userService;
+  late UserAuthenticationService _userAuthenticationService;
+
+  static DelightToastBar? _toastBar;
 
   bool _isfirstTimeSignin = false;
   bool _isFirstNameValid = true;
@@ -45,12 +63,122 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
+  @override
+  void initState() {
+    _userService = UserService();
+    _userAuthenticationService = UserAuthenticationService();
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() {
+    _firstNameController.text = widget.user.firstName;
+    if (widget.user.lastName != null) {
+      _lastNameController.text = widget.user.lastName!;
+    }
+    _usernameController.text = widget.user.username;
+    _emailController.text = widget.user.email;
+    if (widget.user.dateOfBirth != null) {
+      _selectedBirthDate = widget.user.dateOfBirth;
+      _birthDateController.text =
+          DateFormat('dd-MMM-yyyy').format(widget.user.dateOfBirth!);
+    }
+    if (widget.user.phoneNumber != null) {
+      _phoneNumber = PhoneNumber(
+        isoCode: 'IN',
+        phoneNumber: widget.user.phoneNumber!.substring(3),
+      );
+      _phoneController.text = widget.user.phoneNumber!.substring(3);
+    }
+    if (widget.user.address != null) {
+      _addressController.text = widget.user.address!;
+    }
+  }
+
   Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      Uint8List imageBytes = await pickedFile.readAsBytes();
       setState(() {
-        _profileImage = File(pickedFile.path);
+        _profileImage = XFile(pickedFile.path);
+        _profileImageBytes = imageBytes;
       });
+    }
+  }
+
+  void _showSnackBar() {
+    Navigator.of(context).pushReplacementNamed('/');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.fixed,
+        duration: Duration(seconds: 7),
+        elevation: 5,
+        content: Text(
+          "Your profile has been updated.",
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showToastErrorMessage(String message) {
+    _toastBar = DelightToastBar(
+      position: DelightSnackbarPosition.top,
+      autoDismiss: true,
+      animationDuration: Duration(milliseconds: 15),
+      builder: (context) => ToastCard(
+        leading: Icon(
+          Icons.flutter_dash,
+          size: 30,
+          color: Colors.blue,
+        ),
+        title: Text(
+          "$message.",
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: null,
+          icon: Icon(
+            Icons.error,
+            size: 25,
+            color: Colors.red,
+          ),
+        ),
+      ),
+    );
+    setState(() {
+      _toastBar?.show(context);
+    });
+  }
+
+  Future<void> _updateUserDetails(
+    EditStateUser editStateUser,
+    User user,
+  ) async {
+    setState(() {
+      _isLoading = true;
+    });
+    CustomMessage message = await _userService.updateUserDetails(
+      _userAuthenticationService.getUID(),
+      editStateUser,
+      user,
+      _profileImageBytes,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (message.cause == "Success") {
+      _showSnackBar();
+    } else {
+      _showToastErrorMessage(message.description);
     }
   }
 
@@ -118,10 +246,14 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                                   CircleAvatar(
                                     radius: 55,
                                     backgroundImage: _profileImage != null
-                                        ? FileImage(_profileImage!)
-                                        : AssetImage(
-                                                'assets/jpg-images/profile-pic-empty-jpg.jpg')
-                                            as ImageProvider,
+                                        ? MemoryImage(_profileImageBytes!)
+                                        : widget.user.profilePictureUrl != null
+                                            ? NetworkImage(widget
+                                                .user.profilePictureUrl!
+                                                .toString())
+                                            : AssetImage(
+                                                'assets/jpg-images/profile-pic-empty-jpg.jpg',
+                                              ) as ImageProvider,
                                     backgroundColor: Colors.grey[200],
                                   ),
                                   Positioned(
@@ -296,6 +428,7 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                     SizedBox(height: 10),
                     TextFormField(
                       controller: _usernameController,
+                      readOnly: true,
                       decoration: InputDecoration(
                         labelText: 'Username',
                         labelStyle: TextStyle(
@@ -303,10 +436,10 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[800]!),
+                          borderSide: BorderSide(color: Colors.grey[400]!),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple),
+                          borderSide: BorderSide(color: Colors.grey[400]!),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red),
@@ -314,8 +447,19 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red),
                         ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey[
+                                  400]!), // Lighter grey border for readonly
+                        ),
                         suffixIcon: _isUsernameValid
-                            ? null
+                            ? Tooltip(
+                                message: "The username cannot be changed.",
+                                child: Icon(
+                                  Icons.update_disabled_rounded,
+                                  color: Colors.grey[800]!,
+                                ),
+                              )
                             : Icon(Icons.error_outline_outlined),
                       ),
                       validator: (username) {
@@ -406,6 +550,7 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                     SizedBox(height: 4),
                     TextFormField(
                       controller: _emailController,
+                      readOnly: true,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: TextStyle(
@@ -413,10 +558,10 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[800]!),
+                          borderSide: BorderSide(color: Colors.grey[400]!),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple),
+                          borderSide: BorderSide(color: Colors.grey[400]!),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red),
@@ -424,8 +569,17 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red),
                         ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[400]!),
+                        ),
                         suffixIcon: _isEmailValid
-                            ? null
+                            ? Tooltip(
+                                message: "The email address cannot be changed.",
+                                child: Icon(
+                                  Icons.update_disabled_rounded,
+                                  color: Colors.grey[800]!,
+                                ),
+                              )
                             : Icon(Icons.error_outline_outlined),
                       ),
                       validator: (email) {
@@ -561,24 +715,18 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
               TextButton(
                 onPressed: () {
                   if (_editProfileFormKey.currentState!.validate()) {
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        behavior: SnackBarBehavior.fixed,
-                        duration: Duration(seconds: 7),
-                        elevation: 5,
-                        content: Text(
-                          "Your profile has been updated.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    _editProfileFormKey.currentState!.save();
+                    print(widget.user.profilePictureUrl);
+                    _updateUserDetails(
+                        EditStateUser(
+                          widget.user.profilePictureUrl,
+                          _firstNameController.text,
+                          _lastNameController.text,
+                          _selectedBirthDate,
+                          "+91${_phoneController.text}",
+                          _addressController.text,
                         ),
-                      ),
-                    );
+                        widget.user);
                   }
                 },
                 style: TextButton.styleFrom(
@@ -587,14 +735,23 @@ class _EditProfileFormScreenState extends State<EditProfileFormScreen> {
                       horizontal: 12, vertical: 12), // Padding
                   minimumSize: Size(95, 45), // Minimum size
                 ),
-                child: Text(
-                  'Save',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ), // Text size
-                ),
+                child: _isLoading
+                    ? SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 3,
+                        ),
+                      )
+                    : Text(
+                        'Save',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ), // Text size
+                      ),
               ),
             ],
           ),

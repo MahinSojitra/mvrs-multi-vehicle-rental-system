@@ -16,7 +16,7 @@ class User {
   String _email;
   DateTime? _dateOfBirth;
   String? _phoneNumber;
-  Uri? _profilePictureUrl;
+  String? _profilePictureUrl;
   int _totalRentals;
   double _totalSpent;
   String? _address;
@@ -45,7 +45,7 @@ class User {
   set email(String email) => _email = email;
   set dateOfBirth(DateTime? dateOfBirth) => _dateOfBirth = dateOfBirth;
   set phoneNumber(String? phoneNumber) => _phoneNumber = phoneNumber;
-  set profilePictureUrl(Uri? profilePictureUrl) =>
+  set profilePictureUrl(String? profilePictureUrl) =>
       _profilePictureUrl = profilePictureUrl;
   set totalRentals(int totalRentals) => _totalRentals = totalRentals;
   set totalSpent(double totalSpent) => _totalSpent = totalSpent;
@@ -60,7 +60,7 @@ class User {
   String get email => _email;
   DateTime? get dateOfBirth => _dateOfBirth;
   String? get phoneNumber => _phoneNumber;
-  Uri? get profilePictureUrl => _profilePictureUrl;
+  String? get profilePictureUrl => _profilePictureUrl;
   int get totalRentals => _totalRentals;
   double get totalSpent => _totalSpent;
   String? get address => _address;
@@ -82,5 +82,22 @@ class User {
       userData?['createdAt'].toDate(),
       userData?['updatedAt'].toDate(),
     );
+  }
+
+  static Map<String, dynamic> toMap(User user) {
+    return {
+      'firstName': user.firstName,
+      'lastName': user.lastName,
+      'username': user.username,
+      'email': user.email,
+      'dateOfBirth': user.dateOfBirth,
+      'phoneNumber': user.phoneNumber,
+      'profilePictureUrl': user.profilePictureUrl,
+      'totalRentals': user.totalRentals,
+      'totalSpent': user.totalSpent,
+      'address': user.address,
+      'createdAt': user.createdAt,
+      'updatedAt': user.updatedAt,
+    };
   }
 }

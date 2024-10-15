@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mvrs/screens/discover_search_result_screen.dart';
 
 class SearchVehicleWidget extends StatefulWidget {
   const SearchVehicleWidget({super.key});
@@ -38,6 +39,7 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
     'Bhuj',
     'Surendranagar'
   ];
+  final List<String> _vehicleTypes = ["Motorcycles", "Cars", "Buses", "Trucks"];
   // ignore: unused_field
   String _selectedCity = "";
   DateTime _tripStart = DateTime.now();
@@ -374,7 +376,22 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_selectedCity != "") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      DiscoverSearchResultScreen(
+                                    searchCity: _selectedCity,
+                                    journeyStartDate: _tripStart,
+                                    journeyEndDate: _tripEnd,
+                                    vehicleType: _vehicleTypes[_selectedIndex],
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                             foregroundColor: Colors.white,

@@ -24,12 +24,10 @@ class _HostVehicleScreenState extends State<HostVehicleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isSignedIn
-          ? UserSigninIndicationScreen(
-              title: "Be a Host",
-              subTitle: "Sign in to host your vehicle",
-            )
-          : Placeholder(),
+      body: UserSigninIndicationScreen(
+        title: "Be a Host",
+        subTitle: "Sign in to host your vehicle",
+      ),
     );
   }
 }

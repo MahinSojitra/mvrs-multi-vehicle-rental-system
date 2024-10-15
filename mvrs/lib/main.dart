@@ -11,6 +11,7 @@ import 'package:mvrs/screens/app_splash_screen.dart';
 import 'package:mvrs/screens/bottom_navigation_screens/feedback_screens/user_feedback_form_screen.dart';
 import 'package:mvrs/screens/bottom_navigation_screens/profile_screens/edit_profile_form_screen.dart';
 import 'package:mvrs/screens/dashboard_screen.dart';
+import 'package:mvrs/screens/discover_search_result_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/app-splash",
+      initialRoute: "/",
       routes: {
         "/": (context) => DashboardScreen(),
         "/app-splash": (context) => AppSplashScreen(),
@@ -47,7 +48,6 @@ class MyApp extends StatelessWidget {
             ForgotPasswordVerificationScreen(),
         "/reset-password": (context) => ResetPasswordScreen(),
         "/feedback-form": (context) => UserFeedbackFormScreen(),
-        "/edit-profile": (context) => EditProfileFormScreen(),
       },
     );
   }

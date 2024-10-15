@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mvrs/entities/user.dart';
+import 'package:mvrs/screens/bottom_navigation_screens/profile_screens/edit_profile_form_screen.dart';
 
 class ProfileDetailsCardWidget extends StatefulWidget {
+  final User user;
   final String firstName;
   final String? lastName;
   final String username;
@@ -20,6 +23,7 @@ class ProfileDetailsCardWidget extends StatefulWidget {
 
   ProfileDetailsCardWidget({
     super.key,
+    required this.user,
     required this.firstName,
     required this.lastName,
     required this.username,
@@ -158,7 +162,14 @@ class _ProfileDetailsCardWidgetState extends State<ProfileDetailsCardWidget> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/edit-profile");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfileFormScreen(
+                            user: widget.user,
+                          ),
+                        ),
+                      );
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.green, // Text color

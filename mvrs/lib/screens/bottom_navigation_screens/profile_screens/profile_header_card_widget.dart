@@ -43,10 +43,39 @@ class _ProfileHeaderCardWidgetState extends State<ProfileHeaderCardWidget> {
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: CircleAvatar(
-                  backgroundImage:
-                      Image.asset("assets/jpg-images/profile-pic-empty-jpg.jpg")
-                          .image,
-                  radius: 40, // Adjust the radius to your needs
+                  radius: 50, // Set the radius of the avatar
+                  backgroundColor: Colors.grey[300], // Placeholder color
+                  child: ClipOval(
+                    child: Image.network(
+                      widget.imageUrl.toString(),
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child; // If image is loaded, return the image
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return Center(
+                          child: Icon(
+                            Icons
+                                .signal_wifi_statusbar_connected_no_internet_4_outlined,
+                            color: Colors.grey[500],
+                            size: 35,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: 16), // Space between image and text

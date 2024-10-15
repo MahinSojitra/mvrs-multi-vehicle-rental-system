@@ -91,24 +91,44 @@ class _MyTripCardWidgetState extends State<MyTripCardWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      // Handle how are we doing button press
-                      Navigator.pushNamed(context, "/feedback-form");
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.green, // Text color
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4), // Padding
-                      minimumSize: Size(80, 30), // Minimum size
-                    ),
-                    child: Text(
-                      'How are we doing?',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ), // Text size
-                    ),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.green, // Text color
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4), // Padding
+                          minimumSize: Size(80, 30), // Minimum size
+                        ),
+                        child: Text(
+                          'Locate ride',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ), // Text size
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/feedback-form");
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.green, // Text color
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4), // Padding
+                          minimumSize: Size(80, 30), // Minimum size
+                        ),
+                        child: Text(
+                          'How are we doing?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ), // Text size
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     "${widget.currencyFormater.format(

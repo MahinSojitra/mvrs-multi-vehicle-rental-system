@@ -90,16 +90,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ? Column(
                             children: [
                               ProfileHeaderCardWidget(
-                                imageUrl: _user!.profilePictureUrl ??
-                                    Uri(
-                                      path:
-                                          "assets/jpg-images/profile-pic-empty-jpg.jpg",
-                                    ),
+                                imageUrl: Uri.parse(
+                                  _user!.profilePictureUrl ??
+                                      Uri(
+                                        path:
+                                            "assets/jpg-images/profile-pic-empty-jpg.jpg",
+                                      ).toFilePath(),
+                                ),
                                 firstName: _user!.firstName,
                                 lastName: _user!.lastName ?? "",
                                 joinedDate: _user!.createdAt,
                               ),
                               ProfileDetailsCardWidget(
+                                user: _user!,
                                 firstName: _user!.firstName,
                                 lastName: _user!.lastName ?? null,
                                 username: _user!.username,
