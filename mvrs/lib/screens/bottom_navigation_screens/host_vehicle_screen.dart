@@ -10,6 +10,7 @@ class HostVehicleScreen extends StatefulWidget {
 }
 
 class _HostVehicleScreenState extends State<HostVehicleScreen> {
+  // ignore: unused_field
   late bool _isSignedIn;
   late UserAuthenticationService _userAuthenticationService;
 
