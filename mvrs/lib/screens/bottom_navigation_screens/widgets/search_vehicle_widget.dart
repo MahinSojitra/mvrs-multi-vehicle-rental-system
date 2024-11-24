@@ -59,8 +59,8 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: initialDateTime,
-      firstDate: DateTime(initialDateTime.year - 5),
-      lastDate: DateTime(initialDateTime.year + 5),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(initialDateTime.month + 1),
     );
 
     if (pickedDate != null) {
@@ -319,56 +319,59 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
                     Container(
                       width: double
                           .infinity, // Ensure the Container takes full width
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ToggleButtons(
-                            isSelected: List.generate(
-                                4, (index) => index == _selectedIndex),
-                            onPressed: (int index) {
-                              setState(() {
-                                _selectedIndex = index;
-                              });
-                            },
-                            children: <Widget>[
-                              _buildToggleButton(
-                                Icons.motorcycle,
-                                'Motorcycles',
-                                '[Bikes, Scooters..]',
-                                "Includes all types of two wheeler like. Bikes, Scooters, etc.",
-                                0,
-                              ),
-                              _buildToggleButton(
-                                Icons.directions_car,
-                                'Cars',
-                                '[Sedans, SUVs..]',
-                                "Includes all types of four wheeler like. Sedans, SUVs, Hatchbacks, Coupe, etc.",
-                                1,
-                              ),
-                              _buildToggleButton(
-                                Icons.directions_bus,
-                                'Buses',
-                                '[Transport, School..]',
-                                "Includes all types of buses like. School Vans, AC Bus, Non-AC Bus, Sleeper Bus, etc.",
-                                2,
-                              ),
-                              _buildToggleButton(
-                                Icons.local_shipping,
-                                'Trucks & Vans',
-                                '[Pickup, Delivery..]',
-                                "Includes all heavy vehicles like. Parcel Pickup Vans, Delivery Trucks, Heavy-Duty Trucks, Tankers, etc.",
-                                3,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.black,
-                            selectedColor: Colors.white,
-                            fillColor: Colors.green,
-                            borderWidth: 2,
-                            selectedBorderColor:
-                                Colors.green, // Adjust the height
-                          ),
-                        ],
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ToggleButtons(
+                              isSelected: List.generate(
+                                  4, (index) => index == _selectedIndex),
+                              onPressed: (int index) {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+                              },
+                              children: <Widget>[
+                                _buildToggleButton(
+                                  Icons.motorcycle,
+                                  'Motorcycles',
+                                  '[Bikes, Scooters..]',
+                                  "Includes all types of two wheeler like. Bikes, Scooters, etc.",
+                                  0,
+                                ),
+                                _buildToggleButton(
+                                  Icons.directions_car,
+                                  'Cars',
+                                  '[Sedans, SUVs..]',
+                                  "Includes all types of four wheeler like. Sedans, SUVs, Hatchbacks, Coupe, etc.",
+                                  1,
+                                ),
+                                _buildToggleButton(
+                                  Icons.directions_bus,
+                                  'Buses',
+                                  '[Transport, School..]',
+                                  "Includes all types of buses like. School Vans, AC Bus, Non-AC Bus, Sleeper Bus, etc.",
+                                  2,
+                                ),
+                                _buildToggleButton(
+                                  Icons.local_shipping,
+                                  'Trucks & Vans',
+                                  '[Pickup, Delivery..]',
+                                  "Includes all heavy vehicles like. Parcel Pickup Vans, Delivery Trucks, Heavy-Duty Trucks, Tankers, etc.",
+                                  3,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.black,
+                              selectedColor: Colors.white,
+                              fillColor: Colors.green,
+                              borderWidth: 2,
+                              selectedBorderColor:
+                                  Colors.green, // Adjust the height
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),
