@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/app-splash",
       routes: {
         "/": (context) => DashboardScreen(),
         "/app-splash": (context) => AppSplashScreen(),
