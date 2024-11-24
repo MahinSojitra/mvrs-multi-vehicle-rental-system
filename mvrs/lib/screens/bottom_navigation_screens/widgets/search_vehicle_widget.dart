@@ -60,7 +60,7 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
       context: context,
       initialDate: initialDateTime,
       firstDate: DateTime.now(),
-      lastDate: DateTime(initialDateTime.month + 1),
+      lastDate: DateTime(initialDateTime.year + 1),
     );
 
     if (pickedDate != null) {
