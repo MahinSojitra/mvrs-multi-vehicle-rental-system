@@ -10,6 +10,7 @@ import 'package:mvrs/firebase_options.dart';
 import 'package:mvrs/screens/app_splash_screen.dart';
 import 'package:mvrs/screens/bottom_navigation_screens/feedback_screens/user_feedback_form_screen.dart';
 import 'package:mvrs/screens/dashboard_screen.dart';
+import 'package:mvrs/screens/ride_summary_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/app-splash",
+      initialRoute: "/ride-summary",
       routes: {
         "/": (context) => DashboardScreen(),
         "/app-splash": (context) => AppSplashScreen(),
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         "/forget-password-verification": (context) =>
             ForgotPasswordVerificationScreen(),
         "/reset-password": (context) => ResetPasswordScreen(),
+        "/ride-summary": (context) => RideSummaryScreen(),
         "/feedback-form": (context) => UserFeedbackFormScreen(),
       },
     );

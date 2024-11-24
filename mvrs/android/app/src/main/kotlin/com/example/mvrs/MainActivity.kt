@@ -1,4 +1,4 @@
-package com.example.mvrs
+package com.android.mvrs
 
 import io.flutter.embedding.android.FlutterActivity
 

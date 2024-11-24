@@ -63,12 +63,26 @@ class _MyTripCardWidgetState extends State<MyTripCardWidget> {
                         color: Colors.purple,
                       ),
                     ),
-                    Text(
-                      "#${widget.tripCode}",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.purple.shade500,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Trip Code",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          "#${widget.tripCode}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.purple.shade500,
+                            height: 1,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
