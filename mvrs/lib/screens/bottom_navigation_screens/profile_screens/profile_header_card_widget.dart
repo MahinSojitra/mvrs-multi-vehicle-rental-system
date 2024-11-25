@@ -46,34 +46,36 @@ class _ProfileHeaderCardWidgetState extends State<ProfileHeaderCardWidget> {
                   radius: 50, // Set the radius of the avatar
                   backgroundColor: Colors.grey[300], // Placeholder color
                   child: ClipOval(
-                    child: Image.network(
-                      widget.imageUrl.toString(),
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child; // If image is loaded, return the image
-                        }
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    (loadingProgress.expectedTotalBytes ?? 1)
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (BuildContext context, Object error,
-                          StackTrace? stackTrace) {
-                        return Center(
-                          child: Icon(
-                            Icons
-                                .signal_wifi_statusbar_connected_no_internet_4_outlined,
-                            color: Colors.grey[500],
-                            size: 35,
-                          ),
-                        );
-                      },
+                    child: AspectRatio(
+                      aspectRatio: 1, // Ensures the image is square
+                      child: Image.network(
+                        widget.imageUrl.toString(),
+                        fit: BoxFit.cover, // Ensures the image fills the circle
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child; // Return the image if loaded
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
+                        errorBuilder: (BuildContext context, Object error,
+                            StackTrace? stackTrace) {
+                          return Center(
+                            child: Icon(
+                              Icons.error_outline,
+                              color: Colors.grey[500],
+                              size: 35,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

@@ -69,18 +69,25 @@ class User {
 
   static User fromDocument(DocumentSnapshot? userData) {
     return User(
-      userData?['firstName'],
+      userData?['firstName'] ?? '',
       userData?['lastName'],
-      userData?['username'],
-      userData?['email'],
-      userData?['dateOfBirth']?.toDate(),
+      userData?['username'] ?? '',
+      userData?['email'] ?? '',
+      userData?['dateOfBirth'] != null
+          ? (userData?['dateOfBirth'] as Timestamp).toDate()
+          : null,
       userData?['phoneNumber'],
       userData?['profilePictureUrl'],
-      userData?['totalRentals'],
-      userData?['totalSpent'],
+      (userData?['totalRentals'] ?? 0) as int, // Ensure totalRentals is an int
+      (userData?['totalSpent'] ?? 0.0)
+          .toDouble(), // Convert totalSpent to double
       userData?['address'],
-      userData?['createdAt'].toDate(),
-      userData?['updatedAt'].toDate(),
+      userData?['createdAt'] != null
+          ? (userData?['createdAt'] as Timestamp).toDate()
+          : DateTime.now(),
+      userData?['updatedAt'] != null
+          ? (userData?['updatedAt'] as Timestamp).toDate()
+          : DateTime.now(),
     );
   }
 

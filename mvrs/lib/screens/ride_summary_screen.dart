@@ -2,6 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class RideSummaryScreen extends StatelessWidget {
+  final String tripCode;
+  final String model;
+  final DateTime tripStartDate;
+  final DateTime tripEndDate;
+  final double rentAmount;
+
+  RideSummaryScreen({
+    Key? key,
+    required this.model,
+    required this.tripCode,
+    required this.tripStartDate,
+    required this.tripEndDate,
+    required this.rentAmount,
+  }) : super(key: key);
+
   final NumberFormat currencyFormater = NumberFormat.currency(
     locale: 'en_IN', // Indian locale
     symbol: '₹', // Indian Rupee symbol
@@ -57,57 +72,53 @@ class RideSummaryScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Model",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                "BMW M760i xDrive",
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.purple,
-                                  height: 1,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            "Trip Code",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Trip Code",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                "#TRIPMAJJK101",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.purple.shade500,
-                                  height: 1,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            "#${tripCode}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.purple.shade500,
+                              height: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Model",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Text(
+                            model,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.purple,
+                              height: 1,
+                            ),
                           ),
                         ],
                       ),
                       SizedBox(height: 3),
                       Text(
-                        "Trip Starts at 12:30pm on May 12, 2023 and ended at 02:30pm on May 12, 2023",
+                        "Trip Starts at ${DateFormat('hh:mma on MMM d, yyyy').format(tripStartDate)} and ended at ${DateFormat('hh:mma on MMM d, yyyy').format(tripEndDate)}",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -141,7 +152,7 @@ class RideSummaryScreen extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            '${currencyFormater.format(13520)}',
+                            '${currencyFormater.format(rentAmount)}',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -171,7 +182,7 @@ class RideSummaryScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${currencyFormater.format(13520)}',
+                  '${currencyFormater.format(rentAmount)}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.purple,
@@ -182,23 +193,7 @@ class RideSummaryScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Handle completion logic
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Your ride has been booked!',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-                Navigator.pop(context);
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 padding: const EdgeInsets.symmetric(vertical: 14.0),
@@ -218,7 +213,9 @@ class RideSummaryScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, "/");
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Colors.transparent,
