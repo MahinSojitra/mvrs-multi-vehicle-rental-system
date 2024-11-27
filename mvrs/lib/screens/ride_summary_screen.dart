@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mvrs/screens/vehicle_detail_view_screen.dart';
 
 class RideSummaryScreen extends StatelessWidget {
   final String tripCode;
   final String model;
+  final String maker;
+  final String year;
+  final String color;
+  final String imageUrl;
   final DateTime tripStartDate;
   final DateTime tripEndDate;
   final double rentAmount;
@@ -11,6 +16,10 @@ class RideSummaryScreen extends StatelessWidget {
   RideSummaryScreen({
     Key? key,
     required this.model,
+    required this.maker,
+    required this.year,
+    required this.color,
+    required this.imageUrl,
     required this.tripCode,
     required this.tripStartDate,
     required this.tripEndDate,
@@ -134,7 +143,26 @@ class RideSummaryScreen extends StatelessWidget {
                           Row(
                             children: [
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  // Handle "More Details" button press
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          VehicleDetailViewScreen(
+                                        model: model,
+                                        maker: maker,
+                                        year: year,
+                                        color: color,
+                                        imageUrl: imageUrl,
+                                        tripCode: tripCode,
+                                        tripStartDate: tripStartDate,
+                                        tripEndDate: tripEndDate,
+                                        rentAmount: rentAmount,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.green, // Text color
                                   padding: EdgeInsets.symmetric(

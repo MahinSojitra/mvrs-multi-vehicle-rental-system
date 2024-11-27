@@ -6,6 +6,9 @@ class VehicleCardGrid extends StatelessWidget {
   final List<Map<String, dynamic>> vehicleList = [
     {
       'tripCode': "TRIPMAJJK101",
+      'maker': 'Tesla',
+      'year': '2023',
+      'color': 'Blue',
       'model': 'Tesla Model S',
       'imageUrl':
           'https://hips.hearstapps.com/hmg-prod/images/2024-tesla-model-s-107-6572200e43fa1.jpg?crop=0.497xw:0.560xh;0.243xw,0.232xh&resize=768:*',
@@ -16,6 +19,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK102",
       'model': 'BMW i8',
+      'maker': 'BMW',
+      'year': '2023',
+      'color': 'White',
       'imageUrl':
           'https://www.shutterstock.com/image-photo/kuala-lumpur-malaysia-april-7-600nw-2143397457.jpg',
       'tripStartDate': DateTime(2024, 12, 1, 12, 00),
@@ -25,6 +31,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK103",
       'model': 'Thar',
+      'maker': 'Mahindra',
+      'year': '2023',
+      'color': 'Black',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpBe_O3wM7b3hfln5TYnbfTO7QpabGBt4w_Q&s',
       'tripStartDate': DateTime(2024, 9, 30, 5, 00),
@@ -34,6 +43,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK104",
       'model': 'Nissan GT-R',
+      'maker': 'Nissan',
+      'year': '2023',
+      'color': 'Red',
       'imageUrl':
           'https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20240628064514_Untitled%20design%20_%202024_06_28T184501.816.jpg',
       'tripStartDate': DateTime(2024, 12, 12, 10, 00),
@@ -43,6 +55,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK105",
       'model': 'Ford Mustang',
+      'maker': 'Ford',
+      'year': '2023',
+      'color': 'Red',
       'imageUrl':
           'https://upload.wikimedia.org/wikipedia/commons/7/7f/1965_Ford_Mustang_2D_Hardtop_Front.jpg',
       'tripStartDate': DateTime(2024, 12, 5, 4, 20),
@@ -52,6 +67,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK106",
       'model': 'Chevrolet',
+      'maker': 'Chevrolet',
+      'year': '2023',
+      'color': 'Red',
       'imageUrl':
           'https://images.thequint.com/thequint%2F2016-02%2F15ee3c7d-b1d0-4354-a635-30d0f51d828f%2FCruze-hero.jpg',
       'tripStartDate': DateTime(2024, 12, 2, 10, 20),
@@ -61,6 +79,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK107",
       'model': 'Porsche 911',
+      'maker': 'Porsche',
+      'year': '2023',
+      'color': 'Black',
       'imageUrl':
           'https://assets.porsche.com/dwaas-infohub/-/media/Project/DealerWebsites/SharedDealersWebsite/Master-Model-Page/911-Turbo/General-Model/General-model_911-Turbo.jpg?rev=5efc15cd5f68412c8ed778e0c199ed16',
       'tripStartDate': DateTime(2024, 12, 2, 10, 20),
@@ -70,6 +91,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK108",
       'model': 'Lamborghini Huracan',
+      'maker': 'Lamborghini',
+      'year': '2023',
+      'color': 'Red',
       'imageUrl':
           'https://stimg.cardekho.com/images/carexteriorimages/930x620/Lamborghini/Huracan-EVO/10643/1690010999692/front-left-side-47.jpg',
       'tripStartDate': DateTime(2025, 12, 23, 10, 20),
@@ -79,6 +103,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK109",
       'model': 'Ferrari 488',
+      'maker': 'Ferrari',
+      'year': '2023',
+      'color': 'Red',
       'imageUrl':
           'https://sbraceengineering.co.uk/wp-content/uploads/Ferrari-488-GTB.jpg',
       'tripStartDate': DateTime(2025, 12, 23, 10, 20),
@@ -88,6 +115,9 @@ class VehicleCardGrid extends StatelessWidget {
     {
       'tripCode': "TRIPMAJJK110",
       'model': 'Maserati Ghibli',
+      'maker': 'Maserati',
+      'year': '2023',
+      'color': 'Blue',
       'imageUrl':
           'https://imgd-ct.aeplcdn.com/664x415/n/j0irpsa_1476670.jpg?q=80',
       'tripStartDate': DateTime(2025, 3, 16, 10, 00),
@@ -122,6 +152,10 @@ class VehicleCardGrid extends StatelessWidget {
                 builder: (context) => RideSummaryScreen(
                   tripCode: vehicle['tripCode'],
                   model: vehicle['model'],
+                  maker: vehicle['maker'],
+                  year: vehicle['year'],
+                  color: vehicle['color'],
+                  imageUrl: vehicle['imageUrl'],
                   tripStartDate: vehicle['tripStartDate'],
                   tripEndDate: vehicle['tripEndDate'],
                   rentAmount: vehicle['rent'],

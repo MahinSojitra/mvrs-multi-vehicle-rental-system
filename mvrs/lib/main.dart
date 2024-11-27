@@ -12,6 +12,7 @@ import 'package:mvrs/screens/bottom_navigation_screens/feedback_screens/user_fee
 import 'package:mvrs/screens/dashboard_screen.dart';
 import 'package:mvrs/screens/discover_search_result_screen.dart';
 import 'package:mvrs/screens/ride_summary_screen.dart';
+import 'package:mvrs/screens/vehicle_detail_view_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

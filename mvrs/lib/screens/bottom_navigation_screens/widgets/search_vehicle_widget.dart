@@ -45,7 +45,7 @@ class _SearchCardWidgetState extends State<SearchVehicleWidget> {
   DateTime _tripStart = DateTime.now();
   DateTime _tripEnd = DateTime.now().add(Duration(hours: 1));
   final DateFormat _dateFormat = DateFormat('MMM d, h:m a');
-  int _selectedIndex = 0; // Index of the selected button
+  int _selectedIndex = 1; // Index of the selected button
 
   @override
   void initState() {

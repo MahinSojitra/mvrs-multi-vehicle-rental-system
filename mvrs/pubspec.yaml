@@ -56,6 +56,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.10.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,8 +77,6 @@ flutter:
     - assets/svg-images/profile-pic-empty-svg.svg
     - assets/svg-images/signin-indication-page-svg.svg
     - assets/jpg-images/profile-pic-empty-jpg.jpg
-    - assets/png-images/mvrs-logo.png
-    - assets/png-images/mvrs-logo-png.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -103,3 +102,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/png-images/mvrs-logo.png"
