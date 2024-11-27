@@ -169,12 +169,22 @@ class RideSummaryScreen extends StatelessWidget {
                                       horizontal: 8, vertical: 4), // Padding
                                   minimumSize: Size(80, 30), // Minimum size
                                 ),
-                                child: Text(
-                                  'More Details',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                  ), // Text size
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'More Details',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ), // Text size
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

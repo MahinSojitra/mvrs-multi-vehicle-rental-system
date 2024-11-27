@@ -41,7 +41,12 @@ class _DiscoverSearchResultScreenState
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: VehicleCardGrid(),
+          child: VehicleCardGrid(
+            searchCity: widget.searchCity,
+            journeyStartDate: widget.journeyStartDate,
+            journeyEndDate: widget.journeyEndDate,
+            vehicleType: widget.vehicleType,
+          ),
         ),
       ),
     );
